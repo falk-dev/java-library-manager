@@ -34,7 +34,7 @@ Criar uma aplicação em Java, com interface de texto, que possibilite o cadastr
 - Histórico de empréstimos
 
 ## 🧱 Estrutura de Pacotes
-biblioteca/
+biblioteca/  
 ├── aplicacao/ # Classe principal com o método main e interação com o usuário  
 ├── modelo/ # Classes de domínio: Livro, Usuario, Emprestimo  
 ├── repositorio/ # Simulação do banco de dados com Map  
