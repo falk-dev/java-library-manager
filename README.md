@@ -44,7 +44,7 @@ biblioteca/
 
 - Sintaxe da linguagem Java
 - Modelagem orientada a objetos
-- Abstração, encapsulamento, herança (se aplicável)
+- Abstração e encapsulamento
 - Métodos acessores e modificadores (getters e setters)
 - Construtores e sobrecarga
 - Métodos e atributos estáticos
