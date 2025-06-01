@@ -1,22 +1,63 @@
 package modelo;
-import java.util.HashMap;
-import modelo.Emprestimo;
+// import java.util.HashMap;
+// import modelo.Emprestimo;
 
 public class Livro {
 	private String titulo;
 	private String autor;
 	private String isbn;
-	private String editora;
 	private String ano;
+	private String editora;
 	private int quantidade;
-	private HashMap<String, Emprestimo> emprestimos;
+	// private HashMap<String, Emprestimo> emprestimos;
 	
-	public Livro(String titulo, String autor, String isbn, String editora, String ano, int quantidade) {
+	// Método construtor de Livro caso a inserção seja com autoria não identificada
+	public Livro(String titulo, String isbn, String editora, String ano, int quantidade) {
 		this.titulo = titulo;
-		this.autor = autor;
+		this.autor = "Autor desconhecido";
 		this.isbn = isbn;
-		this.editora = editora;
 		this.ano = ano;
+		this.editora = editora;
 		this.quantidade = quantidade;
+	}
+
+	// Método construtor de Livro caso a inserção seja com autoria reconhecida
+	public Livro(String titulo, String autor, String isbn, String editora, String ano, int quantidade) {
+		this(titulo, isbn, editora, ano, quantidade);
+		this.autor = autor;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public String getAno() {
+		return ano;
+	}
+
+	public String getEditora() {
+		return editora;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	@Override
+	public String toString() {
+		String relatorio = "\nTitulo: " + this.titulo;
+		relatorio += "\nAutor: " + this.autor;
+		relatorio += "\nISBN: " + this.isbn;
+		relatorio += "\nEditora: " + this.editora;
+		relatorio += "\nAno de lançamento: " + this.ano;
+		return relatorio;
 	}
 }
