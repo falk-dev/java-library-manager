@@ -4,8 +4,8 @@ Este projeto foi desenvolvido como parte da **Terceira Avaliação da Nota 1** d
 
 ## 🧑‍💻 Equipe
 
-- Nome 1 ([@github-usuario1](https://github.com/github-usuario1))
-- Nome 2 ([@github-usuario2](https://github.com/github-usuario2))
+- Mychelle Ketlen ([@falk-dev](https://github.com/falk-dev))
+- Rubens Neto ([@RUBENSNETO0001](https://github.com/RUBENSNETO0001))
 
 ## 🎯 Objetivo
 
@@ -35,10 +35,10 @@ Criar uma aplicação em Java, com interface de texto, que possibilite o cadastr
 
 ## 🧱 Estrutura de Pacotes
 biblioteca/
-├── aplicacao/ # Classe principal com o método main e interação com o usuário
-├── modelo/ # Classes de domínio: Livro, Usuario, Emprestimo
-├── repositorio/ # Simulação do banco de dados com Map
-├── servico/ # Casos de uso: cadastro, empréstimo, etc.
+├── aplicacao/ # Classe principal com o método main e interação com o usuário  
+├── modelo/ # Classes de domínio: Livro, Usuario, Emprestimo  
+├── repositorio/ # Simulação do banco de dados com Map  
+├── servico/ # Casos de uso: cadastro, empréstimo, etc.  
 
 ## 📌 Conceitos Aplicados
 
