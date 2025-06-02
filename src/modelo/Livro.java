@@ -11,7 +11,7 @@ public class Livro {
 	private int quantidade;
 	// private HashMap<String, Emprestimo> emprestimos;
 	
-	// Método construtor de Livro caso a inserção seja com autoria não identificada
+	// Metodo construtor de Livro caso a insercao seja com autoria nao identificada.
 	public Livro(String titulo, String isbn, String editora, String ano, int quantidade) {
 		this.titulo = titulo;
 		this.autor = "Autor desconhecido";
@@ -21,7 +21,7 @@ public class Livro {
 		this.quantidade = quantidade;
 	}
 
-	// Método construtor de Livro caso a inserção seja com autoria reconhecida
+	// Metodo construtor de Livro caso a insercao seja com autoria reconhecida.
 	public Livro(String titulo, String autor, String isbn, String editora, String ano, int quantidade) {
 		this(titulo, isbn, editora, ano, quantidade);
 		this.autor = autor;
@@ -57,7 +57,7 @@ public class Livro {
 		relatorio += "\nAutor: " + this.autor;
 		relatorio += "\nISBN: " + this.isbn;
 		relatorio += "\nEditora: " + this.editora;
-		relatorio += "\nAno de lançamento: " + this.ano;
+		relatorio += "\nAno de lancamento: " + this.ano;
 		return relatorio;
 	}
 }
