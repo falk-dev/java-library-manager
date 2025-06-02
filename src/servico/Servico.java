@@ -27,7 +27,7 @@ public class Servico {
     return "Este livro ja foi cadastrado anteriormente!";
   }
 
-  // Validações a ponderar para serem implementadas nesta função:
+  // Validacoes a ponderar para serem implementadas neste metodo:
   // - Eh possivel remover livros mesmo que o livro esteja emprestado?
   // - Eh possivel remover livros mesmo que o livro ainda tenha exemplares na biblioteca?
   public void removerLivro() {
@@ -39,7 +39,7 @@ public class Servico {
   // apelidados de 'l'. Dai a segunda parte comunica que o metodo a 
   // ser acessado 'getLivros()' esta na classe BDBiblioteca, e a parte
   // que estou acessando sao os valores, que constam todas as informacoes:
-  // Titulo, autor, ISBN, ano de lançamento e editora. Neste caso, nao eh
+  // Titulo, autor, ISBN, ano de lancamento e editora. Neste caso, nao eh
   // interessantes acessar as chaves, pois retornaria apenas o numero do
   // ISBN, que foi definido como o identificador de cada livro
   public String getRelatorioLivros() {
@@ -51,13 +51,13 @@ public class Servico {
     return lista;
   }
 
-  // Metodo que consulta o livro através do identificador ISBN.
-  // Caso encontre o ISBN do livro no sistema, então retorna o relatório,
-  // caso não encontre, retorna uma mensagem de erro.
+  // Metodo que consulta o livro atraves do identificador ISBN.
+  // Caso encontre o ISBN do livro no banco, entao retorna o relatório,
+  // caso nao encontre, retorna uma mensagem de erro.
   public String getLivroISBN(String isbn) {
     if (BDBiblioteca.getLivros().containsKey(isbn)) {
       return BDBiblioteca.getLivros().get(isbn).toString();
     }
-    return "Este livro nao está cadastrado no sistema.";
+    return "Este livro nao esta cadastrado no sistema.";
   }
 }
