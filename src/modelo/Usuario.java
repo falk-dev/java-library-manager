@@ -29,6 +29,7 @@ public class Usuario {
 	public String getEmail() {
 		return email;
 	}
+  
 	public String getTelefone() {
 		return telefone;
 	}
@@ -53,7 +54,6 @@ public class Usuario {
 		this.telefone = telefone;
 	}
 	
-	
 	//isso aqui é uma anotação que indica ao compilador que
 	//o método que está sendo declarado é uma sobrescrita de um método 
 	//da classe pai (superclasse).
@@ -66,6 +66,4 @@ public class Usuario {
 		return relatorioUser;
 		// tentei colocar no padrao desejado.
 	}
-	// Nao sei se vai precisa disso aqui mais vi que vc myche colocou no livro entao vou colocar
-	// se puder me explica depois oque isso faz agradeço
 }
