@@ -1,13 +1,14 @@
 package servico;
 
 // Importação de pacotes
-// import modelo.Usuario;
+import modelo.Emprestimo;
 import modelo.Livro;
-// import modelo.Emprestimo;
+import modelo.Usuario;
 import repositorio.BDBiblioteca;
 
 public class Servico {
   private Livro l;
+  private Emprestimo e;
 
   // Metodo de cadastrar livro quando nao houver autoria identificada
   public String cadastrarLivro(String titulo, String isbn, String editora, String ano, int quantidade) {
@@ -37,11 +38,11 @@ public class Servico {
   // A forma usada para percorrer eh o foreach, a primeira parte da
   // estrutura comunicando que os elementos sao do tipo Livro, e serao
   // apelidados de 'l'. Dai a segunda parte comunica que o metodo a 
-  // ser acessado 'getLivros()' esta na classe BDBiblioteca, e a parte
-  // que estou acessando sao os valores, que constam todas as informacoes:
+  // ser acessado 'getLivros()' esta na classe BDBiblioteca, e estou
+  // percorrendo os valores do mapa, que constam todas as informacoes:
   // Titulo, autor, ISBN, ano de lancamento e editora. Neste caso, nao eh
-  // interessantes acessar as chaves, pois retornaria apenas o numero do
-  // ISBN, que foi definido como o identificador de cada livro
+  // interessante percorrer as chaves, pois retornaria apenas o numero do
+  // ISBN, que foi definido como o identificador (chave) de cada livro.
   public String getRelatorioLivros() {
     String lista = "";
     for(Livro l : BDBiblioteca.getLivros().values()) {
@@ -52,12 +53,20 @@ public class Servico {
   }
 
   // Metodo que consulta o livro atraves do identificador ISBN.
-  // Caso encontre o ISBN do livro no banco, entao retorna o relatório,
+  // Caso encontre o ISBN do livro no banco, entao retorna o relatorio,
   // caso nao encontre, retorna uma mensagem de erro.
   public String getLivroISBN(String isbn) {
     if (BDBiblioteca.getLivros().containsKey(isbn)) {
       return BDBiblioteca.getLivros().get(isbn).toString();
     }
     return "Este livro nao esta cadastrado no sistema.";
+  }
+
+  public String realizarEmprestimo(Livro livro, Usuario usuario, String dataEmprestimo, String dataEstimadaDevolucao) {
+    e = new Emprestimo(livro, usuario, dataEmprestimo, dataEstimadaDevolucao);
+    if(BDBiblioteca.addEmprestimo(e)) {
+      return "Emprestimo realizado com sucesso.";
+    }
+    return "O livro que voce escolheu nao esta disponivel para emprestimo.";
   }
 }
