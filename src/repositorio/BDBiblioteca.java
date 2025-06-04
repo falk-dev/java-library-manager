@@ -20,7 +20,6 @@ public class BDBiblioteca {
     return emprestimos;
   }
   
-  
   public static HashMap<String, Usuario> getUsuario(){
 	  return usuarios;
   }

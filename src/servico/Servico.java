@@ -134,6 +134,10 @@ public class Servico {
 	    }
 	    return "Usuário não encontrado.";
 	}
+  //nao consigui pensar em um jeito para resolve isso aqui.
+  public String listarLivro() {
+	  
+  }
   
   //to com duvida aqui oh
   public String removerUsuario(String cpf) {
