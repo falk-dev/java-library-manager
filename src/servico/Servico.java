@@ -162,13 +162,14 @@ public class Servico {
 	    return "Usuário não encontrado.";
 	}
 
+  //nao consigui pensar em um jeito para resolve isso aqui.
   public String listarUsuario() {
-	  String lista = "";
-    for(Usuario u : BDBiblioteca.getUsuario().values()) {
-      lista += u.toString();
-			lista += "\n=============================\n";
-    }
-    return lista;
+	  String listaRela = "";
+	  for(Usuario u: BDBiblioteca.getUsuario().values()) {
+		  listaRela += u.toString();
+		  listaRela += "";
+	  }
+	  return listaRela;
   }
   
   public String removerUsuario(String cpf) {
