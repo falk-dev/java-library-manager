@@ -28,11 +28,14 @@ public class Servico {
     return "Erro! Este livro ja foi cadastrado anteriormente!";
   }
 
-  // Validacoes a ponderar para serem implementadas neste metodo:
-  // - Eh possivel remover livros mesmo que o livro esteja emprestado?
-  // - Eh possivel remover livros mesmo que o livro ainda tenha exemplares na biblioteca?
-  // A implementar
-  public void removerLivro() {
+  // Se a remoção for bem sucedida, retorna uma mensagem de sucesso.
+  // Caso contrário, retorna uma mensagem de erro.
+  public String removerLivro(String isbn) {
+    if(BDBiblioteca.removeLivro(isbn)) {
+      return "Livro removido com sucesso.";
+    }
+    
+    return "Erro! Não é possível remover o livro, está emprestado ou não existe no sistema.";
   }
 
   // Gera um relatório com todos os livros cadastrados.
@@ -56,8 +59,21 @@ public class Servico {
     return "Erro! Este livro nao esta cadastrado no sistema.";
   }
 
-  // A implementar
-  public void buscarLivrosAutor() {}
+  // Método que busca no mapa os livros em que o autor corresponde ao nome fornecido.
+  public String getLivrosAutor(String autor) {
+    String lista = "";
+    for (Livro l : BDBiblioteca.getLivros().values()) {
+      if (l.getAutor().equals(autor)) {
+        lista += l.toString();
+        lista += "\n=============================\n";
+      }
+    }
+    if (lista.equals("")) {
+      return "Erro! Este autor não está cadastrado no sistema.";
+    }
+
+    return lista;
+  }
 
   // Método para realizar um empréstimo de livro.
   // Cria um novo objeto do tipo Emprestimo e verifica se o empréstimo foi bem sucedido.
@@ -71,8 +87,8 @@ public class Servico {
   }
 
   // Realiza a devolução de um livro com base no empréstimo, ISBN e datas fornecidas.
-  public String realizarDevolucao(Emprestimo e, String isbn, String dataEmprestimo, String dataDevolucao) {
-    if(BDBiblioteca.addDevolucao(e, isbn, dataEmprestimo, dataDevolucao)) {
+  public String realizarDevolucao(String isbn, String dataEmprestimo, String dataDevolucao) {
+    if(BDBiblioteca.addDevolucao(isbn, dataEmprestimo, dataDevolucao)) {
       return "Devolução realizada com sucesso.";
     }
     return "Erro! O empréstimo não consta no sistema.";

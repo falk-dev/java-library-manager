@@ -45,10 +45,25 @@ public class BDBiblioteca {
   // ao empréstimo em questão. Caso positivo, atualiza o status para
   // "Devolvido" e define a data da devolução. Retorna 'true' se a
   // devolução for registrada com sucesso, e 'false' caso contrário.
-  public static boolean addDevolucao(Emprestimo e, String isbn, String dataEmprestimo, String dataDevolucao) {
+  public static boolean addDevolucao(String isbn, String dataEmprestimo, String dataDevolucao) {
+    Emprestimo e = getEmprestimos().get(isbn);
     if(e.getLivro().getIsbn().equals(isbn) && e.getDataEmprestimo().equals(dataEmprestimo)) {
       e.setStatus("Devolvido");
       e.setDataDevolucao(dataDevolucao);
+      return true;
+    }
+    return false;
+  }
+
+  // Remove um livro do banco de dados, se ele não estiver emprestado.
+  public static boolean removeLivro(String isbn) {
+    if(getEmprestimos().containsKey(isbn)) {
+      if(getEmprestimos().get(isbn).getStatus().equals("Emprestado")) {
+        return false;
+      }
+    }
+    if (getLivros().containsKey(isbn)) {
+      livros.remove(isbn);
       return true;
     }
     return false;
