@@ -4,7 +4,6 @@ package servico;
 import modelo.Emprestimo;
 
 import modelo.Livro;
-import modelo.Usuario;
 import repositorio.BDBiblioteca;
 
 public class Servico {
@@ -80,8 +79,8 @@ public class Servico {
   // Método para realizar um empréstimo de livro.
   // Cria um novo objeto do tipo Emprestimo e verifica se o empréstimo foi bem sucedido.
   // Caso retorne 'true', o livro foi emprestado com sucesso. Caso contrário, ele não está disponível.
-  public String realizarEmprestimo(Livro livro, Usuario usuario, String dataEmprestimo, String dataEstimadaDevolucao) {
-    e = new Emprestimo(livro, usuario, dataEmprestimo, dataEstimadaDevolucao);
+  public String realizarEmprestimo(String isbn, String cpf, String dataEmprestimo, String dataEstimadaDevolucao) {
+    e = new Emprestimo(isbn, cpf, dataEmprestimo, dataEstimadaDevolucao);
     if(BDBiblioteca.addEmprestimo(e)) {
       return "Emprestimo realizado com sucesso.";
     }
@@ -89,7 +88,7 @@ public class Servico {
   }
 
   // Realiza a devolução de um livro com base no empréstimo, ISBN e datas fornecidas.
-  public String realizarDevolucao(String isbn, String dataEmprestimo, String dataDevolucao) {
+  public String realizarDevolucao(String isbn, String cpf, String dataEmprestimo, String dataDevolucao) {
     if(BDBiblioteca.addDevolucao(isbn, dataEmprestimo, dataDevolucao)) {
       return "Devolução realizada com sucesso.";
     }

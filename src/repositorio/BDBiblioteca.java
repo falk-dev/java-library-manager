@@ -37,9 +37,9 @@ public class BDBiblioteca {
   // Verifica se há mais de um exemplar disponível. Se houver, adiciona o empréstimo ao HashMap, diminui a quantidade em 1 e retorna 'true'.
   // Caso contrário, não realiza o empréstimo e retorna 'false'.
   public static boolean addEmprestimo(Emprestimo e) {
-    if (e.getLivro().getQuantidade() > 1) {
-      emprestimos.put(e.getLivro().getIsbn(), e);
-      e.getLivro().setQuantidade(e.getLivro().getQuantidade() - 1);
+    if (getLivros().get(e.getLivroIsbn()).getQuantidade() > 1) {
+      emprestimos.put(e.getLivroIsbn(), e);
+      getLivros().get(e.getLivroIsbn()).setQuantidade(getLivros().get(e.getLivroIsbn()).getQuantidade() - 1);
       return true;
     }
     return false;
@@ -52,7 +52,7 @@ public class BDBiblioteca {
   // devolução for registrada com sucesso, e 'false' caso contrário.
   public static boolean addDevolucao(String isbn, String dataEmprestimo, String dataDevolucao) {
     Emprestimo e = getEmprestimos().get(isbn);
-    if(e.getLivro().getIsbn().equals(isbn) && e.getDataEmprestimo().equals(dataEmprestimo)) {
+    if(e.getLivroIsbn().equals(isbn) && e.getDataEmprestimo().equals(dataEmprestimo)) {
       e.setStatus("Devolvido");
       e.setDataDevolucao(dataDevolucao);
       return true;
