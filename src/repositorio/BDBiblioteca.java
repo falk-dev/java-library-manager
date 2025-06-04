@@ -34,15 +34,10 @@ public class BDBiblioteca {
   }
 
   // Método para adicionar um empréstimo, usando o ISBN do livro como identificador.
-  // Verifica se há mais de um exemplar disponível. Se houver, adiciona o empréstimo ao HashMap, diminui a quantidade em 1 e retorna 'true'.
-  // Caso contrário, não realiza o empréstimo e retorna 'false'.
   public static boolean addEmprestimo(Emprestimo e) {
-    if (getLivros().get(e.getLivroIsbn()).getQuantidade() > 1) {
-      emprestimos.put(e.getLivroIsbn(), e);
-      getLivros().get(e.getLivroIsbn()).setQuantidade(getLivros().get(e.getLivroIsbn()).getQuantidade() - 1);
-      return true;
-    }
-    return false;
+    livros.get(e.getLivroIsbn()).diminuirQuantidade();
+    emprestimos.put(e.getLivroIsbn(), e);
+    return true;
   }
 
   // Método responsável por registrar a devolução de um livro.
@@ -53,6 +48,7 @@ public class BDBiblioteca {
   public static boolean addDevolucao(String isbn, String dataEmprestimo, String dataDevolucao) {
     Emprestimo e = getEmprestimos().get(isbn);
     if(e.getLivroIsbn().equals(isbn) && e.getDataEmprestimo().equals(dataEmprestimo)) {
+      livros.get(e.getLivroIsbn()).adicionarQuantidade();
       e.setStatus("Devolvido");
       e.setDataDevolucao(dataDevolucao);
       return true;
@@ -76,9 +72,7 @@ public class BDBiblioteca {
   
   // rubens -- daqui para baixo
   public static boolean addUsuario(Usuario u) {
-	  if(usuarios.containsKey(u.getCpf())) {
-		  return false;
-	  }
+	  if(usuarios.containsKey(u.getCpf())) return false;
 	  usuarios.put(u.getCpf(), u);
 	  return true;
   }
@@ -86,7 +80,6 @@ public class BDBiblioteca {
 	    return usuarios.get(cpf); // Retorna o objeto Usuario se existir, senão null
 	}
   
-  // analisei outros codigos e acho que poderia remove usuario desse jeito
   public static void removerUsuario(String cpf) {
 	  usuarios.remove(cpf);
   }

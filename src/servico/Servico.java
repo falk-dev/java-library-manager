@@ -4,6 +4,7 @@ package servico;
 import modelo.Emprestimo;
 
 import modelo.Livro;
+import modelo.Usuario;
 import repositorio.BDBiblioteca;
 
 public class Servico {
@@ -82,6 +83,9 @@ public class Servico {
   public String realizarEmprestimo(String isbn, String cpf, String dataEmprestimo, String dataEstimadaDevolucao) {
     e = new Emprestimo(isbn, cpf, dataEmprestimo, dataEstimadaDevolucao);
     if(BDBiblioteca.addEmprestimo(e)) {
+      if (BDBiblioteca.getLivros().get(isbn).getQuantidade() > 1) {
+        BDBiblioteca.getLivros().get(isbn).diminuirQuantidade();
+      }
       return "Emprestimo realizado com sucesso.";
     }
     return "Erro! O livro que voce escolheu nao esta disponivel para emprestimo.";
@@ -140,8 +144,16 @@ public class Servico {
 	 if(BDBiblioteca.addUsuario(u)) {
 		 return "Usuario cadastrado.";
 	 }
-	 return "Error no cadastro.";
+	 return "Erro no cadastro.";
   }
+
+  public String cadastrarUsuario(String nome, String cpf, String email) {
+    u = new Usuario(nome, cpf, email);
+    if(BDBiblioteca.addUsuario(u)) {
+      return "Usuario cadastrado.";
+    }
+    return "Erro no cadastro.";
+   }
   
   public String consultarUsuario(String cpf) {
 	    if (BDBiblioteca.getUsuario(cpf) != null) {
@@ -149,12 +161,16 @@ public class Servico {
 	    }
 	    return "Usuário não encontrado.";
 	}
-  //nao consigui pensar em um jeito para resolve isso aqui.
-  public String listarLivro() {
-	  
+
+  public String listarUsuario() {
+	  String lista = "";
+    for(Usuario u : BDBiblioteca.getUsuario().values()) {
+      lista += u.toString();
+			lista += "\n=============================\n";
+    }
+    return lista;
   }
   
-  //to com duvida aqui oh
   public String removerUsuario(String cpf) {
 	  if(BDBiblioteca.getUsuario(cpf) != null){
 		  BDBiblioteca.removerUsuario(cpf);

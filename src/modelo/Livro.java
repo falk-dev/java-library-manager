@@ -52,6 +52,14 @@ public class Livro {
 		return quantidade;
 	}
 
+	public void adicionarQuantidade() {
+		this.quantidade++;
+	}
+
+	public void diminuirQuantidade() {
+		this.quantidade--;
+	}
+
 	@Override
 	public String toString() {
 		String relatorio = "\nTitulo: " + this.titulo;
