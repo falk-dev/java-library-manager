@@ -2,6 +2,7 @@ package servico;
 
 // Importação de classes do sistema
 import modelo.Emprestimo;
+
 import modelo.Livro;
 import modelo.Usuario;
 import repositorio.BDBiblioteca;
@@ -9,6 +10,7 @@ import repositorio.BDBiblioteca;
 public class Servico {
   private Livro l;
   private Emprestimo e;
+  private Usuario u;
 
 // Método responsável pelo cadastro de livros sem autor identificado
   public String cadastrarLivro(String titulo, String isbn, String editora, String ano, int quantidade) {
@@ -113,5 +115,23 @@ public class Servico {
 			lista += "\n=============================\n";
     }
     return lista;
+  }
+  
+  
+//Usuario - Rubens
+  
+  public String cadastrarUsuario(String nome, String cpf, String email, String telefone) {
+	 u = new Usuario(nome, cpf, email, telefone);
+	 if(BDBiblioteca.addUsuario(u)) {
+		 return "Usuario cadastrado.";
+	 }
+	 return "Error no cadastro.";
+  }
+  
+  public String ConsultarUsuario(String cpf) {
+	  if(BDBiblioteca.ConsultarUsuario(cpf, u)) {
+		  return "Usuario encontrado.";
+	  }
+	  return "Usuario não encontrado.";
   }
 }

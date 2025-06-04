@@ -4,10 +4,12 @@ import java.util.HashMap;
 import modelo.Emprestimo;
 // import modelo.Usuario;
 import modelo.Livro;
+import modelo.Usuario;
 
 public class BDBiblioteca {
   private static HashMap<String, Livro> livros = new HashMap<String, Livro>();
   private static HashMap<String, Emprestimo> emprestimos = new HashMap<String, Emprestimo>();
+  private static HashMap<String, Usuario> usuario = new HashMap<String, Usuario>();
 
   // Método que retorna todos os livros cadastrados no banco como um mapa (ISBN -> Livro).
   public static HashMap<String, Livro> getLivros() {
@@ -17,6 +19,11 @@ public class BDBiblioteca {
   // Método que retorna todos os empréstimos cadastrados no banco como um mapa (ISBN -> Empréstimo).
   public static HashMap<String, Emprestimo> getEmprestimos() {
     return emprestimos;
+  }
+  
+  
+  public static HashMap<String, Usuario> getUsuario(){
+	  return usuario;
   }
 
   // Adiciona um livro ao HashMap usando o ISBN como identificador.
@@ -53,4 +60,21 @@ public class BDBiblioteca {
     }
     return false;
   }
+  
+  // rubens -- daqui para baixo
+  public static boolean addUsuario(Usuario u) {
+	  if(usuario.containsKey(u.getCpf())) {
+		  return false;
+	  }
+	  usuario.put(u.getCpf(), u);
+	  return true;
+  }
+  public static boolean ConsultarUsuario(String cpf, Usuario u) {
+	  if(usuario.containsKey(u.getCpf())) {
+		  return false;
+	  }
+	  return true;
+  }
+  
+  
 }
