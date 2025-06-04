@@ -5,6 +5,7 @@ public class Emprestimo {
 	private Usuario usuario;
 	private String dataEmprestimo;
 	private String dataEstimadaDevolucao;
+	private String dataDevolucao;
 	private String status;
 	public static int contador = 0;
 	
@@ -13,6 +14,7 @@ public class Emprestimo {
 		this.usuario = usuario;
 		this.dataEmprestimo = dataEmprestimo;
 		this.dataEstimadaDevolucao = dataEstimadaDevolucao;
+		this.dataDevolucao = "-";
 		this.status = "Emprestado";
 	}
 
@@ -20,53 +22,67 @@ public class Emprestimo {
 		return livro;
 	}
 
-
 	public void setLivro(Livro livro) {
 		this.livro = livro;
 	}
-
 
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
 
 	public String getDataEmprestimo() {
 		return dataEmprestimo;
 	}
 
-
 	public void setDataEmprestimo(String dataEmprestimo) {
 		this.dataEmprestimo = dataEmprestimo;
 	}
-
 
 	public String getDataEstimadaDevolucao() {
 		return dataEstimadaDevolucao;
 	}
 
-
 	public void setDataEstimadaDevolucao(String dataEstimadaDevolucao) {
 		this.dataEstimadaDevolucao = dataEstimadaDevolucao;
 	}
 
-	public String getStatus() {
-		return this.status;
+	public String getDataDevolucao() {
+		return dataDevolucao;
 	}
 
+	public void setDataDevolucao(String dataDevolucao) {
+		this.dataDevolucao = dataDevolucao;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public static int getContador() {
+		return contador;
+	}
+
+	public static void setContador(int contador) {
+		Emprestimo.contador = contador;
+	}
 
 	@Override
 	public String toString() {
-		String relatorio = "\nTitulo: " + this.livro;
+		String relatorio = "\nISBN: " + this.livro.getIsbn();
+		relatorio += "\nTitulo: " + this.livro;
 		relatorio += "\nUsuario: " + this.usuario;
-		relatorio += "\nData de emprestimo: " + this.dataEmprestimo;
-		relatorio += "\nData de estimada de devolucao: " + this.dataEstimadaDevolucao;
-		relatorio += "\nDevolvido?: " + this.status;
+		relatorio += "\nData de empréstimo: " + this.dataEmprestimo;
+		relatorio += "\nData de estimada de devolução: " + this.dataEstimadaDevolucao;
+		relatorio += "\nData de devolução: " + this.dataDevolucao;
+		relatorio += "\nStatus: " + this.status;
 		return relatorio;
 	}
 }
