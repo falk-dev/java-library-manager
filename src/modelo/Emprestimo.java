@@ -7,7 +7,6 @@ public class Emprestimo {
 	private String dataEstimadaDevolucao;
 	private String dataDevolucao;
 	private String status;
-	public static int contador = 0;
 	
 	public Emprestimo(Livro livro, Usuario usuario, String dataEmprestimo, String dataEstimadaDevolucao) {
 		this.livro = livro;
@@ -64,14 +63,6 @@ public class Emprestimo {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public static int getContador() {
-		return contador;
-	}
-
-	public static void setContador(int contador) {
-		Emprestimo.contador = contador;
 	}
 
 	@Override
