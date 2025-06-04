@@ -39,18 +39,11 @@ public class Usuario {
 		this.nome = nome;
 	}
 	
-	// realmente isso nao precisaria mychelle, mais e se a pessoa por acasso
-	// colocou o cpf errado. como iriramos fazer para troca esse cpf no proprio sistema?
-	
-	/*public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}*/
-	
 	public void setEmail(String email) {
 		this.email = email;
 	}
 	
-	public void setTelefone() {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	
