@@ -63,18 +63,39 @@ public class Aplicacao{
 					break;
 				case 6:
 					System.out.println("\n========= EMPRÉSTIMO DE LIVRO =========\n");
+					System.out.println("ISBN da obra: ");
+					isbn = teclado.nextLine();
+					System.out.println("CPF do usuário: ");
+					String cpf = teclado.nextLine();
+					System.out.println("Data de Emprestimo: ");
+					String dataEmprestimo = teclado.nextLine();
+					System.out.println("Data estimada de devolução: ");
+					String dataEstimadaDevolucao = teclado.nextLine();
+					resposta = s.realizarEmprestimo(isbn, cpf, dataEmprestimo, dataEstimadaDevolucao);
 					break;
 				case 7:
 					System.out.println("\n========= DEVOLUÇÃO DE LIVRO =========\n");
+					System.out.println("ISBN da obra: ");
+					isbn = teclado.nextLine();
+					System.out.println("CPF do usuário: ");
+					cpf = teclado.nextLine();
+					System.out.println("Data de Emprestimo: ");
+					dataEmprestimo = teclado.nextLine();
+					System.out.println("Data estimada de devolução: ");
+					String dataDevolucao = teclado.nextLine();
+					resposta = s.realizarDevolucao(isbn, cpf, dataEmprestimo, dataDevolucao);
 					break;
 				case 8:
 					System.out.println("\n========= LIVROS EMPRESTADOS =========\n");
+					resposta = s.getRealatorioLivrosEmprestados();
 					break;
 				case 9:
 					System.out.println("\n========= LIVROS DISPONÍVEIS =========\n");
+					resposta = s.getRelatorioLivrosDisponiveis();
 					break;
 				case 10:
 					System.out.println("\n========= RELATÓRIO DE EMPRESTIMOS =========\n");
+					resposta = s.getRelatorioEmprestimos();
 					break;
 				case 0:
 					System.out.println("Programa encerrado");
