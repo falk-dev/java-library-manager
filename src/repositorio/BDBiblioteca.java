@@ -9,33 +9,32 @@ public class BDBiblioteca {
   private static HashMap<String, Livro> livros = new HashMap<String, Livro>();
   private static HashMap<String, Emprestimo> emprestimos = new HashMap<String, Emprestimo>();
 
-  // Metodo para obter todos os livros cadastrados
-  // no banco
+  // Método que retorna todos os livros cadastrados no banco como um mapa (ISBN -> Livro).
   public static HashMap<String, Livro> getLivros() {
     return livros;
   }
 
-  // Metodo para obter todos os empréstimos realizados 
-  // cadastrados no banco
+  // Método que retorna todos os empréstimos cadastrados no banco como um mapa (ISBN -> Empréstimo).
   public static HashMap<String, Emprestimo> getEmprestimos() {
     return emprestimos;
   }
 
-  // Adicionando ao HashMap usando o ISBN como
-  // identificador, caso esse codigo ja esteja
-  // cadastrado, nao sera possivel cadastrar
-  // novamente, retornando 'false' como resposta.
-  // Mas se nao houver cadastro, sera feito o cadastro
-  // e ira retornar 'true' como resposta.
+  // Adiciona um livro ao HashMap usando o ISBN como identificador.
+  // Se o ISBN já estiver cadastrado, o método retorna false.
+  // Caso contrário, o livro é cadastrado e o método retorna true.
   public static boolean addLivro(Livro l) {
     if (livros.containsKey(l.getIsbn())) return false;
     livros.put(l.getIsbn(), l);
     return true;
   }
 
+  // Método para adicionar um empréstimo, usando o ISBN do livro como identificador.
+  // Verifica se há mais de um exemplar disponível. Se houver, adiciona o empréstimo ao HashMap, diminui a quantidade em 1 e retorna 'true'.
+  // Caso contrário, não realiza o empréstimo e retorna 'false'.
   public static boolean addEmprestimo(Emprestimo e) {
     if (e.getLivro().getQuantidade() > 1) {
-      emprestimos.put(e.getId(), e);
+      emprestimos.put(e.getLivro().getIsbn(), e);
+      e.getLivro().setQuantidade(e.getLivro().getQuantidade() - 1);
       return true;
     }
     return false;
