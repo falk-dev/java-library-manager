@@ -128,10 +128,19 @@ public class Servico {
 	 return "Error no cadastro.";
   }
   
-  public String ConsultarUsuario(String cpf) {
-	  if(BDBiblioteca.ConsultarUsuario(cpf, u)) {
-		  return "Usuario encontrado.";
+  public String consultarUsuario(String cpf) {
+	    if (BDBiblioteca.getUsuario(cpf) != null) {
+	        return "Usuário encontrado.";
+	    }
+	    return "Usuário não encontrado.";
+	}
+  
+  //to com duvida aqui oh
+  public String removerUsuario(String cpf) {
+	  if(BDBiblioteca.getUsuario(cpf) != null){
+		  BDBiblioteca.removerUsuario(cpf);
+		 return "Usuario removido."; 
 	  }
-	  return "Usuario não encontrado.";
-  }
+	  return "Não e possivel remover Usuario.";
+}
 }

@@ -2,14 +2,13 @@ package repositorio;
 import java.util.HashMap;
 
 import modelo.Emprestimo;
-// import modelo.Usuario;
 import modelo.Livro;
 import modelo.Usuario;
 
 public class BDBiblioteca {
   private static HashMap<String, Livro> livros = new HashMap<String, Livro>();
   private static HashMap<String, Emprestimo> emprestimos = new HashMap<String, Emprestimo>();
-  private static HashMap<String, Usuario> usuario = new HashMap<String, Usuario>();
+  private static HashMap<String, Usuario> usuarios = new HashMap<String, Usuario>();
 
   // Método que retorna todos os livros cadastrados no banco como um mapa (ISBN -> Livro).
   public static HashMap<String, Livro> getLivros() {
@@ -23,7 +22,7 @@ public class BDBiblioteca {
   
   
   public static HashMap<String, Usuario> getUsuario(){
-	  return usuario;
+	  return usuarios;
   }
 
   // Adiciona um livro ao HashMap usando o ISBN como identificador.
@@ -63,17 +62,19 @@ public class BDBiblioteca {
   
   // rubens -- daqui para baixo
   public static boolean addUsuario(Usuario u) {
-	  if(usuario.containsKey(u.getCpf())) {
+	  if(usuarios.containsKey(u.getCpf())) {
 		  return false;
 	  }
-	  usuario.put(u.getCpf(), u);
+	  usuarios.put(u.getCpf(), u);
 	  return true;
   }
-  public static boolean ConsultarUsuario(String cpf, Usuario u) {
-	  if(usuario.containsKey(u.getCpf())) {
-		  return false;
-	  }
-	  return true;
+  public static Usuario getUsuario(String cpf) {
+	    return usuarios.get(cpf); // Retorna o objeto Usuario se existir, senão null
+	}
+  
+  // analisei outros codigos e acho que poderia remove usuario desse jeito
+  public static void removerUsuario(String cpf) {
+	  usuarios.remove(cpf);
   }
   
   
