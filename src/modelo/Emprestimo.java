@@ -62,7 +62,7 @@ public class Emprestimo {
 	public String toString() {
 		String relatorio = "\nISBN: " + this.livroIsbn;
 		relatorio += "\nTitulo: " + BDBiblioteca.getLivros().get(livroIsbn).getTitulo();
-		// relatorio += "\nUsuario: " + BDBiblioteca.getUsuarios().get(usuarioCpf).getNome();
+		relatorio += "\nUsuario: " + BDBiblioteca.getUsuario().get(usuarioCpf).getNome();
 		relatorio += "\nData de empréstimo: " + this.dataEmprestimo;
 		relatorio += "\nData de estimada de devolução: " + this.dataEstimadaDevolucao;
 		relatorio += "\nData de devolução: " + this.dataDevolucao;
