@@ -150,8 +150,13 @@ public class Servico {
 	    return "Usuário não encontrado.";
 	}
   //nao consigui pensar em um jeito para resolve isso aqui.
-  public String listarLivro() {
-	  
+  public String getRelatorioLivro() {
+	  String listaRela = "";
+	  for(Usuario u: BDBiblioteca.getUsuario().values()) {
+		  listaRela += u.toString();
+		  listaRela += "";
+	  }
+	  return listaRela;
   }
   
   //to com duvida aqui oh
