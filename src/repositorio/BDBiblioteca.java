@@ -39,4 +39,18 @@ public class BDBiblioteca {
     }
     return false;
   }
+
+  // Método responsável por registrar a devolução de um livro.
+  // Verifica se o ISBN e a data do empréstimo informados correspondem
+  // ao empréstimo em questão. Caso positivo, atualiza o status para
+  // "Devolvido" e define a data da devolução. Retorna 'true' se a
+  // devolução for registrada com sucesso, e 'false' caso contrário.
+  public static boolean addDevolucao(Emprestimo e, String isbn, String dataEmprestimo, String dataDevolucao) {
+    if(e.getLivro().getIsbn().equals(isbn) && e.getDataEmprestimo().equals(dataEmprestimo)) {
+      e.setStatus("Devolvido");
+      e.setDataDevolucao(dataDevolucao);
+      return true;
+    }
+    return false;
+  }
 }
