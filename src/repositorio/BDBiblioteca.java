@@ -62,7 +62,10 @@ public class BDBiblioteca {
         return false;
       }
     }
-    livros.remove(isbn);
-    return true;
+    if (getLivros().containsKey(isbn)) {
+      livros.remove(isbn);
+      return true;
+    }
+    return false;
   }
 }

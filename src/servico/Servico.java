@@ -35,7 +35,7 @@ public class Servico {
       return "Livro removido com sucesso.";
     }
     
-    return "Erro! Não é possível remover pois o livro está emprestado.";
+    return "Erro! Não é possível remover o livro, está emprestado ou não existe no sistema.";
   }
 
   // Gera um relatório com todos os livros cadastrados.
@@ -68,6 +68,10 @@ public class Servico {
         lista += "\n=============================\n";
       }
     }
+    if (lista.equals("")) {
+      return "Erro! Este autor não está cadastrado no sistema.";
+    }
+
     return lista;
   }
 
