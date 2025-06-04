@@ -1,6 +1,6 @@
 package servico;
 
-// Importação de pacotes
+// Importação de classes do sistema
 import modelo.Emprestimo;
 import modelo.Livro;
 import modelo.Usuario;
@@ -10,7 +10,7 @@ public class Servico {
   private Livro l;
   private Emprestimo e;
 
-  // Metodo de cadastrar livro quando nao houver autoria identificada
+// Método responsável pelo cadastro de livros sem autor identificado
   public String cadastrarLivro(String titulo, String isbn, String editora, String ano, int quantidade) {
     l = new Livro(titulo, isbn, editora, ano, quantidade);
     if(BDBiblioteca.addLivro(l)) {
@@ -19,7 +19,7 @@ public class Servico {
     return "Este livro ja foi cadastrado anteriormente!";
   }
 
-  // Metodo de cadastrar livro quando houver autoria identificada
+  // Método responsável pelo cadastro de livros com autor identificado
   public String cadastrarLivro(String titulo, String autor, String isbn, String editora, String ano, int quantidade) {
     l = new Livro(titulo, autor, isbn, editora, ano, quantidade);
     if(BDBiblioteca.addLivro(l)) {
@@ -31,18 +31,13 @@ public class Servico {
   // Validacoes a ponderar para serem implementadas neste metodo:
   // - Eh possivel remover livros mesmo que o livro esteja emprestado?
   // - Eh possivel remover livros mesmo que o livro ainda tenha exemplares na biblioteca?
+  // A implementar
   public void removerLivro() {
   }
 
-  // Metodo que mostra o relatorio de todos os livros cadastrados.
-  // A forma usada para percorrer eh o foreach, a primeira parte da
-  // estrutura comunicando que os elementos sao do tipo Livro, e serao
-  // apelidados de 'l'. Dai a segunda parte comunica que o metodo a 
-  // ser acessado 'getLivros()' esta na classe BDBiblioteca, e estou
-  // percorrendo os valores do mapa, que constam todas as informacoes:
-  // Titulo, autor, ISBN, ano de lancamento e editora. Neste caso, nao eh
-  // interessante percorrer as chaves, pois retornaria apenas o numero do
-  // ISBN, que foi definido como o identificador (chave) de cada livro.
+  // Gera um relatório com todos os livros cadastrados.
+  // Usa foreach para percorrer os valores do mapa de livros da BDBiblioteca.
+  // As chaves (ISBNs) são ignoradas porque os dados completos estão nos valores.
   public String getRelatorioLivros() {
     String lista = "";
     for(Livro l : BDBiblioteca.getLivros().values()) {
@@ -52,9 +47,8 @@ public class Servico {
     return lista;
   }
 
-  // Metodo que consulta o livro atraves do identificador ISBN.
-  // Caso encontre o ISBN do livro no banco, entao retorna o relatorio,
-  // caso nao encontre, retorna uma mensagem de erro.
+  // Método que consulta um livro pelo identificador ISBN.
+  // Retorna o relatório do livro se encontrado. Caso contrário, exibe uma mensagem de erro.
   public String getLivroISBN(String isbn) {
     if (BDBiblioteca.getLivros().containsKey(isbn)) {
       return BDBiblioteca.getLivros().get(isbn).toString();
@@ -62,6 +56,12 @@ public class Servico {
     return "Este livro nao esta cadastrado no sistema.";
   }
 
+  // A implementar
+  public void buscarLivrosAutor() {}
+
+  // Método para realizar um empréstimo de livro.
+  // Cria um novo objeto do tipo Emprestimo e verifica se o empréstimo foi bem sucedido.
+  // Caso retorne 'true', o livro foi emprestado com sucesso. Caso contrário, ele não está disponível.
   public String realizarEmprestimo(Livro livro, Usuario usuario, String dataEmprestimo, String dataEstimadaDevolucao) {
     e = new Emprestimo(livro, usuario, dataEmprestimo, dataEstimadaDevolucao);
     if(BDBiblioteca.addEmprestimo(e)) {
@@ -69,4 +69,35 @@ public class Servico {
     }
     return "O livro que voce escolheu nao esta disponivel para emprestimo.";
   }
+
+  // A implementar
+  public void realizarDevolucao() {} 
+
+  // Retorna uma string listando todos os empréstimos cujo status é "Emprestado".
+  public String livrosEmprestados() {
+    String lista = "";
+    for (Emprestimo e : BDBiblioteca.getEmprestimos().values()) {
+      if (e.getStatus().equals("Emprestado")) {
+        lista += e.toString();
+        lista += "\n=============================\n";
+      }
+    }
+    return lista;
+  }
+
+  // Retorna uma string com a lista de livros disponíveis, 
+  // incluindo apenas os exemplares com mais de uma unidade disponível.
+  public String livrosDisponiveis() {
+    String lista = "";
+    for (Livro l : BDBiblioteca.getLivros().values()) {
+      if (l.getQuantidade() > 1) {
+        lista += l.toString();
+        lista += "\n=============================\n";
+      }
+    }
+    return lista;
+  }
+
+  // A implementar
+  public void historicoEmprestimos() {}
 }

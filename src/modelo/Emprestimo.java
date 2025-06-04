@@ -1,7 +1,6 @@
 package modelo;
 
 public class Emprestimo {
-	private int id;
 	private Livro livro;
 	private Usuario usuario;
 	private String dataEmprestimo;
@@ -10,19 +9,12 @@ public class Emprestimo {
 	public static int contador = 0;
 	
 	public Emprestimo(Livro livro, Usuario usuario, String dataEmprestimo, String dataEstimadaDevolucao) {
-		this.id = contador;
 		this.livro = livro;
 		this.usuario = usuario;
 		this.dataEmprestimo = dataEmprestimo;
 		this.dataEstimadaDevolucao = dataEstimadaDevolucao;
 		this.status = "Emprestado";
-		contador++;
 	}
-
-	public String getId() {
-		return Integer.toString(id);
-	}
-
 
 	public Livro getLivro() {
 		return livro;
@@ -61,6 +53,10 @@ public class Emprestimo {
 
 	public void setDataEstimadaDevolucao(String dataEstimadaDevolucao) {
 		this.dataEstimadaDevolucao = dataEstimadaDevolucao;
+	}
+
+	public String getStatus() {
+		return this.status;
 	}
 
 

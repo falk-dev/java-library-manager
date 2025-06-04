@@ -1,6 +1,4 @@
 package modelo;
-// import java.util.HashMap;
-// import modelo.Emprestimo;
 
 public class Livro {
 	private String titulo;
@@ -9,9 +7,8 @@ public class Livro {
 	private String ano;
 	private String editora;
 	private int quantidade;
-	// private HashMap<String, Emprestimo> emprestimos;
 	
-	// Metodo construtor de Livro caso a insercao seja com autoria nao identificada.
+	// Construtor da classe Livro para casos em que a autoria não é identificada.
 	public Livro(String titulo, String isbn, String editora, String ano, int quantidade) {
 		this.titulo = titulo;
 		this.autor = "Autor desconhecido";
@@ -21,7 +18,7 @@ public class Livro {
 		this.quantidade = quantidade;
 	}
 
-	// Metodo construtor de Livro caso a insercao seja com autoria reconhecida.
+	// Construtor da classe Livro para casos em que a autoria é identificada.
 	public Livro(String titulo, String autor, String isbn, String editora, String ano, int quantidade) {
 		this(titulo, isbn, editora, ano, quantidade);
 		this.autor = autor;
@@ -51,6 +48,10 @@ public class Livro {
 		return quantidade;
 	}
 
+	public int setQuantidade(int quantidade) {
+		return quantidade;
+	}
+
 	@Override
 	public String toString() {
 		String relatorio = "\nTitulo: " + this.titulo;
@@ -58,6 +59,7 @@ public class Livro {
 		relatorio += "\nISBN: " + this.isbn;
 		relatorio += "\nEditora: " + this.editora;
 		relatorio += "\nAno de lancamento: " + this.ano;
+		relatorio += "\nQuantidade de exemplares disponiveis: " + this.quantidade;
 		return relatorio;
 	}
 }
