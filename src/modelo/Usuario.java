@@ -12,6 +12,7 @@ public class Usuario {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.email = email;
+		this.telefone = "Não cadastrado";
 	}
 	public Usuario(String nome, String cpf, String email, String telefone) {
 		// pesquisei e this() e bem usado para deixa o code limpo e sem repeticao
@@ -53,9 +54,9 @@ public class Usuario {
 	@Override
 	public String toString(){
 		String relatorioUser = "\nNome: "+ this.nome;
-		relatorioUser = "\nCpf: "+ this.cpf;
-		relatorioUser = "\nEmail: "+ this.email;
-		relatorioUser = "\nTelefone: "+ this.telefone;
+		relatorioUser += "\nCpf: "+ this.cpf;
+		relatorioUser += "\nEmail: "+ this.email;
+		relatorioUser += "\nTelefone: "+ this.telefone;
 		return relatorioUser;
 		// tentei colocar no padrao desejado.
 	}

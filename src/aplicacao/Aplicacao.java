@@ -1,13 +1,14 @@
 package aplicacao;
+
 import java.util.Scanner;
 import servico.Servico;
 
-public class Aplicacao{
+public class Aplicacao {
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner(System.in);
 		Servico s = new Servico();
 		byte op;
-	
+
 		do {
 			String resposta = "";
 			Aplicacao.printMenu();
@@ -16,7 +17,7 @@ public class Aplicacao{
 
 			switch (op) {
 				case 1:
-					System.out.println("\n========= CADASTRO DE USUÁRIO =========\n");
+					System.out.println("\n================== CADASTRO DE USUÁRIO ==================\n");
 					System.out.println("Nome do usuário: ");
 					String nome = teclado.nextLine();
 					System.out.println("CPF: ");
@@ -34,23 +35,23 @@ public class Aplicacao{
 					}
 					break;
 				case 2:
-					System.out.println("\n========= CONSULTA POR CPF =========\n");
+					System.out.println("\n================== CONSULTA POR CPF ==================\n");
 					System.out.println("Informe o CPF: ");
 					cpf = teclado.nextLine();
 					resposta = s.consultarUsuario(cpf);
 					break;
 				case 3:
-					System.out.println("\n========= RELATORIO DE USUÁRIOS =========\n");
+					System.out.println("\n================== RELATORIO DE USUÁRIOS ==================");
 					resposta = s.listarUsuario();
 					break;
 				case 4:
-					System.out.println("\n========= REMOVER USUÁRIO =========\n");
+					System.out.println("\n================== REMOVER USUÁRIO ==================\n");
 					System.out.println("Informe o CPF: ");
 					cpf = teclado.nextLine();
 					resposta = s.removerUsuario(cpf);
 					break;
 				case 5:
-					System.out.println("\n========= CADASTRO DE LIVRO =========\n");
+					System.out.println("\n================== CADASTRO DE LIVRO ==================\n");
 					System.out.println("Nome da obra: ");
 					String titulo = teclado.nextLine();
 					System.out.println("ISBN: ");
@@ -73,31 +74,36 @@ public class Aplicacao{
 					}
 					break;
 				case 6:
-					System.out.println("\n========= CONSULTA POR ISBN =========\n");
+					System.out.println("\n================== CONSULTA POR ISBN ==================\n");
 					System.out.println("Informe o ISBN: ");
 					isbn = teclado.nextLine();
 					resposta = s.getLivroISBN(isbn);
 					break;
 				case 7:
-					System.out.println("\n========= CONSULTA POR AUTOR =========\n");
+					System.out.println("\n================== CONSULTA POR AUTOR ==================\n");
 					System.out.println("Informe o Autor: ");
 					String autor = teclado.nextLine();
 					resposta = s.getLivrosAutor(autor);
 					break;
 				case 8:
-					System.out.println("\n========= RELATORIO DE LIVROS =========\n");
+					System.out.println("\n================== RELATORIO DE LIVROS ==================");
 					resposta = s.getRelatorioLivros();
 					break;
 				case 9:
-					System.out.println("\n========= REMOVER LIVRO =========\n");
+					System.out.println("\n================== REMOVER LIVRO ==================\n");
 					System.out.println("Informe o ISBN: ");
 					isbn = teclado.nextLine();
 					resposta = s.removerLivro(isbn);
 					break;
 				case 10:
-					System.out.println("\n========= EMPRÉSTIMO DE LIVRO =========\n");
+					System.out.println("\n================== EMPRÉSTIMO DE LIVRO ==================\n");
+					System.out.println(s.getRelatorioLivrosDisponiveis());
 					System.out.println("ISBN da obra: ");
 					isbn = teclado.nextLine();
+					System.out.println("\nPressione Enter para limpar o console...");
+					teclado.nextLine();
+					clearConsole();
+					System.out.println(s.listarUsuario());
 					System.out.println("CPF do usuário: ");
 					cpf = teclado.nextLine();
 					System.out.println("Data de Emprestimo: ");
@@ -108,59 +114,56 @@ public class Aplicacao{
 					break;
 				case 11:
 					System.out.println("\n========= DEVOLUÇÃO DE LIVRO =========\n");
-					System.out.println("ISBN da obra: ");
-					isbn = teclado.nextLine();
-					System.out.println("CPF do usuário: ");
-					cpf = teclado.nextLine();
-					System.out.println("Data de Emprestimo: ");
-					dataEmprestimo = teclado.nextLine();
+					System.out.println(s.getRealatorioLivrosEmprestados());
+					System.out.println("Id do empréstimo: ");
+					String id = teclado.nextLine();
 					System.out.println("Data de devolução: ");
 					String dataDevolucao = teclado.nextLine();
-					resposta = s.realizarDevolucao(isbn, cpf, dataEmprestimo, dataDevolucao);
+					resposta = s.realizarDevolucao(id, dataDevolucao);
 					break;
 				case 12:
-					System.out.println("\n========= LIVROS EMPRESTADOS =========\n");
+					System.out.println("\n================== LIVROS EMPRESTADOS ==================");
 					resposta = s.getRealatorioLivrosEmprestados();
 					break;
 				case 13:
-					System.out.println("\n========= LIVROS DISPONÍVEIS =========\n");
+					System.out.println("\n================== LIVROS DISPONÍVEIS ==================");
 					resposta = s.getRelatorioLivrosDisponiveis();
 					break;
 				case 14:
-					System.out.println("\n========= RELATÓRIO DE EMPRESTIMOS =========\n");
+					System.out.println("\n================== RELATÓRIO DE EMPRESTIMOS ==================");
 					resposta = s.getRelatorioEmprestimos();
 					break;
 				case 0:
 					System.out.println("Programa encerrado");
 					break;
 				default:
-				System.out.println("Digite uma opção válida.");
+					System.out.println("Digite uma opção válida.");
 					break;
 			}
 			System.out.println("\n" + resposta);
 
 			// Chamando a limpeza de console
 			System.out.println("\nPressione Enter para limpar o console...");
-      teclado.nextLine();
+			teclado.nextLine();
 			clearConsole();
 		} while (op != 0);
-		
+
 		teclado.close();
 	}
 
 	public static void printMenu() {
-		String menu = "\n===== USUÁRIO =====";
+		String menu = "\n============== USUÁRIO ==============";
 		menu += "\n1 - Cadastrar usuário";
 		menu += "\n2 - Consultar usuário por CPF";
 		menu += "\n3 - Listar usuários";
 		menu += "\n4 - Remover usuário";
-		menu += "\n\n===== LIVRO =====";
+		menu += "\n\n============== LIVRO ==============";
 		menu += "\n5 - Cadastrar livro";
 		menu += "\n6 - Consultar livro por ISBN";
 		menu += "\n7 - Consultar livro por autor";
 		menu += "\n8 - Listar todos os livros";
 		menu += "\n9 - Remover livro";
-		menu += "\n\n===== EMPRÉSTIMO =====";
+		menu += "\n\n============== EMPRÉSTIMO ==============";
 		menu += "\n10 - Realizar empréstimo de um livro";
 		menu += "\n11 - Registrar devolução de um livro";
 		menu += "\n12 - Consultar livros emprestados";
@@ -172,15 +175,15 @@ public class Aplicacao{
 
 	// Para fazer a limpeza do console
 	public static void clearConsole() {
-    try {
-        if (System.getProperty("os.name").contains("Windows")) {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } else {
-            new ProcessBuilder("clear").inheritIO().start().waitFor();
-        }
-    } catch (Exception e) {
-        System.out.println("Erro ao limpar o console.");
-    }
+		try {
+			if (System.getProperty("os.name").contains("Windows")) {
+				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+			} else {
+				new ProcessBuilder("clear").inheritIO().start().waitFor();
+			}
+		} catch (Exception e) {
+			System.out.println("Erro ao limpar o console.");
+		}
 	}
 
 }
