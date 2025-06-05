@@ -46,6 +46,10 @@ public class BDBiblioteca {
   // "Devolvido" e define a data da devolução. Retorna 'true' se a
   // devolução for registrada com sucesso, e 'false' caso contrário.
   public static boolean addDevolucao(String id, String dataDevolucao) {
+
+    for (String chave : BDBiblioteca.getEmprestimos().keySet()) {
+      System.out.println(chave);
+    }
     if(getEmprestimos().containsKey(id)) {
       Emprestimo e = getEmprestimos().get(id);
       livros.get(e.getLivroIsbn()).adicionarQuantidade();

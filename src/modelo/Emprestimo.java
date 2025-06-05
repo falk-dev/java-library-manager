@@ -15,6 +15,7 @@ public class Emprestimo {
 	private static int contador = 0;
 
 	public Emprestimo(String isbn, String cpf, String dataEmprestimo, String dataEstimadaDevolucao) {
+		contador++;
 		this.idEmprestimo = getIdEmprestimo();
 		this.livroIsbn = isbn;
 		this.usuarioCpf = cpf;
@@ -22,7 +23,6 @@ public class Emprestimo {
 		this.dataEstimadaDevolucao = dataEstimadaDevolucao;
 		this.dataDevolucao = "-";
 		this.status = "Emprestado";
-		contador++;
 	}
 
 	public String getIdEmprestimo() {
