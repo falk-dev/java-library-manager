@@ -11,7 +11,7 @@ public class Emprestimo {
 	private String dataDevolucao;
 	private String status;
 
-	private static int contador = 0;
+	private static int contador = 0; // Atributo para gerar o Id do Empréstimo
 
 	public Emprestimo(String isbn, String cpf, String dataEmprestimo, String dataEstimadaDevolucao) {
 		contador++;
