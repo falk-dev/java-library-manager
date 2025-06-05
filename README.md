@@ -55,12 +55,3 @@ biblioteca/
 
 - Código-fonte completo da aplicação
 - Diagrama UML em formato de imagem ou PDF
-
-## 🚀 Execução
-
-Para rodar o projeto localmente, basta compilar e executar a classe principal localizada em `aplicacao/Main.java`.
-
-```bash
-javac biblioteca/aplicacao/Main.java
-java biblioteca.aplicacao.Main
-```
