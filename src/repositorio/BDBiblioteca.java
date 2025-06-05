@@ -11,25 +11,27 @@ public class BDBiblioteca {
   private static HashMap<String, Emprestimo> emprestimos = new HashMap<String, Emprestimo>();
   private static HashMap<String, Usuario> usuarios = new HashMap<String, Usuario>();
 
-  // Método que retorna todos os livros cadastrados no banco como um mapa (ISBN ->
-  // Livro).
+  // Método que retorna todos os livros cadastrados no banco como um mapa
+  // (ISBN -> Livro).
   public static HashMap<String, Livro> getLivros() {
     return livros;
   }
 
   // Método que retorna todos os empréstimos cadastrados no banco como um mapa
-  // (ISBN -> Empréstimo).
+  // (ID -> Emprestimo).
   public static HashMap<String, Emprestimo> getEmprestimos() {
     return emprestimos;
   }
 
+  // Método que retorna todos os usuários cadastrados no banco como um mapa
+  // (CPF -> Usuario).
   public static HashMap<String, Usuario> getUsuario() {
     return usuarios;
   }
 
   // Adiciona um livro ao HashMap usando o ISBN como identificador.
-  // Se o ISBN já estiver cadastrado, o método retorna false.
-  // Caso contrário, o livro é cadastrado e o método retorna true.
+  // Se o ISBN já estiver cadastrado, o método retorna 'false'.
+  // Caso contrário, o livro é cadastrado e o método retorna 'true'.
   public static boolean addLivro(Livro l) {
     if (livros.containsKey(l.getIsbn()))
       return false;
@@ -37,8 +39,7 @@ public class BDBiblioteca {
     return true;
   }
 
-  // Método para adicionar um empréstimo, usando o ISBN do livro como
-  // identificador.
+  // Método para adicionar um empréstimo.
   public static boolean addEmprestimo(Emprestimo e) {
     getLivros().get(e.getLivroIsbn()).diminuirQuantidade();
     emprestimos.put(e.getIdEmprestimo(), e);
@@ -46,10 +47,8 @@ public class BDBiblioteca {
   }
 
   // Método responsável por registrar a devolução de um livro.
-  // Verifica se o ISBN e a data do empréstimo informados correspondem
-  // ao empréstimo em questão. Caso positivo, atualiza o status para
-  // "Devolvido" e define a data da devolução. Retorna 'true' se a
-  // devolução for registrada com sucesso, e 'false' caso contrário.
+  // Retorna 'true' se a devolução for registrada com sucesso.
+  // Caso contrário, retorna 'false'.
   public static boolean addDevolucao(String id, String dataDevolucao) {
     if (getEmprestimos().containsKey(id)) {
       Emprestimo e = getEmprestimos().get(id);
@@ -63,12 +62,12 @@ public class BDBiblioteca {
 
   // Remove um livro do banco de dados, se ele não estiver emprestado.
   public static boolean removeLivro(String isbn) {
-    if (getEmprestimos().containsKey(isbn)) {
-      if (getEmprestimos().get(isbn).getStatus().equals("Emprestado")) {
+    for (Emprestimo e : getEmprestimos().values()) {
+      if (e.getLivroIsbn().equals(isbn) && e.getStatus().equals("Emprestado")) {
         return false;
       }
     }
-    if (getLivros().containsKey(isbn)) {
+    if (livros.containsKey(isbn)) {
       livros.remove(isbn);
       return true;
     }

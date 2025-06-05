@@ -18,7 +18,7 @@ public class Servico {
     if (BDBiblioteca.addLivro(l)) {
       return "Livro cadastrado com sucesso!";
     }
-    return "Erro! Este livro ja foi cadastrado anteriormente!";
+    return "Erro! Este livro já foi cadastrado anteriormente!";
   }
 
   // Método responsável pelo cadastro de livros com autor identificado
@@ -41,13 +41,11 @@ public class Servico {
   }
 
   // Gera um relatório com todos os livros cadastrados.
-  // Usa foreach para percorrer os valores do mapa de livros da BDBiblioteca.
-  // As chaves (ISBNs) são ignoradas porque os dados completos estão nos valores.
   public String getRelatorioLivros() {
     String lista = "";
     for (Livro l : BDBiblioteca.getLivros().values()) {
       lista += l.toString();
-      lista += "\n=============================\n";
+      lista += "\n==================================\n";
     }
     if (lista.equals("")) {
       return "Erro! Não há livros cadastrados.";
@@ -62,7 +60,7 @@ public class Servico {
     if (BDBiblioteca.getLivros().containsKey(isbn)) {
       return BDBiblioteca.getLivros().get(isbn).toString();
     }
-    return "Erro! Este livro nao esta cadastrado no sistema.";
+    return "Erro! Este livro não está cadastrado no sistema.";
   }
 
   // Método que busca no mapa os livros em que o autor corresponde ao nome
@@ -72,7 +70,7 @@ public class Servico {
     for (Livro l : BDBiblioteca.getLivros().values()) {
       if (l.getAutor().equals(autor)) {
         lista += l.toString();
-        lista += "\n=============================\n";
+        lista += "\n==================================\n";
       }
     }
     if (lista.equals("")) {
@@ -85,8 +83,8 @@ public class Servico {
   // Método para realizar um empréstimo de livro.
   // Cria um novo objeto do tipo Emprestimo e verifica se o empréstimo foi bem
   // sucedido.
-  // Caso retorne 'true', o livro foi emprestado com sucesso. Caso contrário, ele
-  // não está disponível.
+  // Caso retorne 'true', o livro foi emprestado com sucesso.
+  // Caso contrário, ele não está disponível.
   public String realizarEmprestimo(String isbn, String cpf, String dataEmprestimo, String dataEstimadaDevolucao) {
     if (BDBiblioteca.getLivros().get(isbn).getQuantidade() > 1) {
       e = new Emprestimo(isbn, cpf, dataEmprestimo, dataEstimadaDevolucao);
@@ -97,8 +95,8 @@ public class Servico {
     return "Erro! O livro que voce escolheu nao esta disponivel para emprestimo.";
   }
 
-  // Realiza a devolução de um livro com base no empréstimo, ISBN e datas
-  // fornecidas.
+  // Realiza a devolução de um livro com base no Id do Empréstimo, recebendo a
+  // data de devolução como parâmetro.
   public String realizarDevolucao(String id, String dataDevolucao) {
     if (BDBiblioteca.addDevolucao(id, dataDevolucao)) {
       return "Devolução realizada com sucesso.";
@@ -106,13 +104,13 @@ public class Servico {
     return "Erro! O empréstimo não consta no sistema.";
   }
 
-  // Retorna uma string listando todos os empréstimos cujo status é "Emprestado".
+  // Retorna uma string listando todos os empréstimos que o status é "Emprestado".
   public String getRealatorioLivrosEmprestados() {
     String lista = "";
     for (Emprestimo e : BDBiblioteca.getEmprestimos().values()) {
       if (e.getStatus().equals("Emprestado")) {
         lista += e.toString();
-        lista += "\n=============================\n";
+        lista += "\n==================================\n";
       }
     }
     if (lista.equals("")) {
@@ -121,13 +119,14 @@ public class Servico {
     return lista;
   }
 
-  // Retorna uma string com a lista de livros disponíveis.
+  // Retorna uma string com a lista de livros disponíveis (mais de 1 exemplar
+  // disponível).
   public String getRelatorioLivrosDisponiveis() {
     String lista = "";
     for (Livro l : BDBiblioteca.getLivros().values()) {
       if (l.getQuantidade() > 1) {
         lista += l.toString();
-        lista += "\n=============================\n";
+        lista += "\n==================================\n";
       }
     }
     if (lista.equals("")) {
@@ -137,13 +136,11 @@ public class Servico {
   }
 
   // Gera um relatório com todos os empréstimos cadastrados.
-  // Usa foreach para percorrer os valores do mapa de empréstimos da BDBiblioteca.
-  // As chaves (ISBNs) são ignoradas porque os dados completos estão nos valores.
   public String getRelatorioEmprestimos() {
     String lista = "";
     for (Emprestimo e : BDBiblioteca.getEmprestimos().values()) {
       lista += e.toString();
-      lista += "\n=============================\n";
+      lista += "\n==================================\n";
     }
     if (lista.equals("")) {
       return "Erro! Não há histórico de empréstimos.";
@@ -176,12 +173,11 @@ public class Servico {
     return "Erro! Este usuário não está cadastrado no sistema.";
   }
 
-  // nao consigui pensar em um jeito para resolve isso aqui.
   public String listarUsuario() {
     String listaRela = "";
     for (Usuario u : BDBiblioteca.getUsuario().values()) {
       listaRela += u.toString();
-      listaRela += "\n=============================\n";
+      listaRela += "\n==================================\n";
     }
     return listaRela;
   }
