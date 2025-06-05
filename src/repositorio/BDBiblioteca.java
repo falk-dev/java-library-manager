@@ -1,4 +1,5 @@
 package repositorio;
+
 import java.util.HashMap;
 
 import modelo.Emprestimo;
@@ -10,30 +11,34 @@ public class BDBiblioteca {
   private static HashMap<String, Emprestimo> emprestimos = new HashMap<String, Emprestimo>();
   private static HashMap<String, Usuario> usuarios = new HashMap<String, Usuario>();
 
-  // Método que retorna todos os livros cadastrados no banco como um mapa (ISBN -> Livro).
+  // Método que retorna todos os livros cadastrados no banco como um mapa (ISBN ->
+  // Livro).
   public static HashMap<String, Livro> getLivros() {
     return livros;
   }
 
-  // Método que retorna todos os empréstimos cadastrados no banco como um mapa (ISBN -> Empréstimo).
+  // Método que retorna todos os empréstimos cadastrados no banco como um mapa
+  // (ISBN -> Empréstimo).
   public static HashMap<String, Emprestimo> getEmprestimos() {
     return emprestimos;
   }
-  
-  public static HashMap<String, Usuario> getUsuario(){
-	  return usuarios;
+
+  public static HashMap<String, Usuario> getUsuario() {
+    return usuarios;
   }
 
   // Adiciona um livro ao HashMap usando o ISBN como identificador.
   // Se o ISBN já estiver cadastrado, o método retorna false.
   // Caso contrário, o livro é cadastrado e o método retorna true.
   public static boolean addLivro(Livro l) {
-    if (livros.containsKey(l.getIsbn())) return false;
+    if (livros.containsKey(l.getIsbn()))
+      return false;
     livros.put(l.getIsbn(), l);
     return true;
   }
 
-  // Método para adicionar um empréstimo, usando o ISBN do livro como identificador.
+  // Método para adicionar um empréstimo, usando o ISBN do livro como
+  // identificador.
   public static boolean addEmprestimo(Emprestimo e) {
     getLivros().get(e.getLivroIsbn()).diminuirQuantidade();
     emprestimos.put(e.getIdEmprestimo(), e);
@@ -46,11 +51,7 @@ public class BDBiblioteca {
   // "Devolvido" e define a data da devolução. Retorna 'true' se a
   // devolução for registrada com sucesso, e 'false' caso contrário.
   public static boolean addDevolucao(String id, String dataDevolucao) {
-
-    for (String chave : BDBiblioteca.getEmprestimos().keySet()) {
-      System.out.println(chave);
-    }
-    if(getEmprestimos().containsKey(id)) {
+    if (getEmprestimos().containsKey(id)) {
       Emprestimo e = getEmprestimos().get(id);
       livros.get(e.getLivroIsbn()).adicionarQuantidade();
       e.setStatus("Devolvido");
@@ -59,11 +60,11 @@ public class BDBiblioteca {
     }
     return false;
   }
-  
+
   // Remove um livro do banco de dados, se ele não estiver emprestado.
   public static boolean removeLivro(String isbn) {
-    if(getEmprestimos().containsKey(isbn)) {
-      if(getEmprestimos().get(isbn).getStatus().equals("Emprestado")) {
+    if (getEmprestimos().containsKey(isbn)) {
+      if (getEmprestimos().get(isbn).getStatus().equals("Emprestado")) {
         return false;
       }
     }
@@ -73,18 +74,20 @@ public class BDBiblioteca {
     }
     return false;
   }
-  
+
   // rubens -- daqui para baixo
   public static boolean addUsuario(Usuario u) {
-	  if(usuarios.containsKey(u.getCpf())) return false;
-	  usuarios.put(u.getCpf(), u);
-	  return true;
+    if (usuarios.containsKey(u.getCpf()))
+      return false;
+    usuarios.put(u.getCpf(), u);
+    return true;
   }
+
   public static Usuario getUsuario(String cpf) {
-	    return usuarios.get(cpf); // Retorna o objeto Usuario se existir, senão null
-	}
-  
+    return usuarios.get(cpf); // Retorna o objeto Usuario se existir, senão null
+  }
+
   public static void removerUsuario(String cpf) {
-	  usuarios.remove(cpf);
+    usuarios.remove(cpf);
   }
 }

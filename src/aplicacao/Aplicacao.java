@@ -1,13 +1,14 @@
 package aplicacao;
+
 import java.util.Scanner;
 import servico.Servico;
 
-public class Aplicacao{
+public class Aplicacao {
 	public static void main(String[] args) {
 		Scanner teclado = new Scanner(System.in);
 		Servico s = new Servico();
 		byte op;
-	
+
 		do {
 			String resposta = "";
 			Aplicacao.printMenu();
@@ -40,7 +41,7 @@ public class Aplicacao{
 					resposta = s.consultarUsuario(cpf);
 					break;
 				case 3:
-					System.out.println("\n================== RELATORIO DE USUÁRIOS ==================\n");
+					System.out.println("\n================== RELATORIO DE USUÁRIOS ==================");
 					resposta = s.listarUsuario();
 					break;
 				case 4:
@@ -85,7 +86,7 @@ public class Aplicacao{
 					resposta = s.getLivrosAutor(autor);
 					break;
 				case 8:
-					System.out.println("\n================== RELATORIO DE LIVROS ==================\n");
+					System.out.println("\n================== RELATORIO DE LIVROS ==================");
 					resposta = s.getRelatorioLivros();
 					break;
 				case 9:
@@ -96,8 +97,13 @@ public class Aplicacao{
 					break;
 				case 10:
 					System.out.println("\n================== EMPRÉSTIMO DE LIVRO ==================\n");
+					System.out.println(s.getRelatorioLivrosDisponiveis());
 					System.out.println("ISBN da obra: ");
 					isbn = teclado.nextLine();
+					System.out.println("\nPressione Enter para limpar o console...");
+					teclado.nextLine();
+					clearConsole();
+					System.out.println(s.listarUsuario());
 					System.out.println("CPF do usuário: ");
 					cpf = teclado.nextLine();
 					System.out.println("Data de Emprestimo: ");
@@ -116,32 +122,32 @@ public class Aplicacao{
 					resposta = s.realizarDevolucao(id, dataDevolucao);
 					break;
 				case 12:
-					System.out.println("\n================== LIVROS EMPRESTADOS ==================\n");
+					System.out.println("\n================== LIVROS EMPRESTADOS ==================");
 					resposta = s.getRealatorioLivrosEmprestados();
 					break;
 				case 13:
-					System.out.println("\n================== LIVROS DISPONÍVEIS ==================\n");
+					System.out.println("\n================== LIVROS DISPONÍVEIS ==================");
 					resposta = s.getRelatorioLivrosDisponiveis();
 					break;
 				case 14:
-					System.out.println("\n================== RELATÓRIO DE EMPRESTIMOS ==================\n");
+					System.out.println("\n================== RELATÓRIO DE EMPRESTIMOS ==================");
 					resposta = s.getRelatorioEmprestimos();
 					break;
 				case 0:
 					System.out.println("Programa encerrado");
 					break;
 				default:
-				System.out.println("Digite uma opção válida.");
+					System.out.println("Digite uma opção válida.");
 					break;
 			}
 			System.out.println("\n" + resposta);
 
 			// Chamando a limpeza de console
 			System.out.println("\nPressione Enter para limpar o console...");
-      teclado.nextLine();
+			teclado.nextLine();
 			clearConsole();
 		} while (op != 0);
-		
+
 		teclado.close();
 	}
 
@@ -169,15 +175,15 @@ public class Aplicacao{
 
 	// Para fazer a limpeza do console
 	public static void clearConsole() {
-    try {
-        if (System.getProperty("os.name").contains("Windows")) {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } else {
-            new ProcessBuilder("clear").inheritIO().start().waitFor();
-        }
-    } catch (Exception e) {
-        System.out.println("Erro ao limpar o console.");
-    }
+		try {
+			if (System.getProperty("os.name").contains("Windows")) {
+				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+			} else {
+				new ProcessBuilder("clear").inheritIO().start().waitFor();
+			}
+		} catch (Exception e) {
+			System.out.println("Erro ao limpar o console.");
+		}
 	}
 
 }

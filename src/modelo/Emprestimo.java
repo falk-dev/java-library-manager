@@ -11,7 +11,6 @@ public class Emprestimo {
 	private String dataDevolucao;
 	private String status;
 
-	
 	private static int contador = 0;
 
 	public Emprestimo(String isbn, String cpf, String dataEmprestimo, String dataEstimadaDevolucao) {
@@ -32,6 +31,7 @@ public class Emprestimo {
 	public String getLivroIsbn() {
 		return livroIsbn;
 	}
+
 	public String getUsuario() {
 		return usuarioCpf;
 	}
