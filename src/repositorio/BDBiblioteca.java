@@ -35,8 +35,8 @@ public class BDBiblioteca {
 
   // Método para adicionar um empréstimo, usando o ISBN do livro como identificador.
   public static boolean addEmprestimo(Emprestimo e) {
-    livros.get(e.getLivroIsbn()).diminuirQuantidade();
-    emprestimos.put(e.getLivroIsbn(), e);
+    getLivros().get(e.getLivroIsbn()).diminuirQuantidade();
+    emprestimos.put(e.getIdEmprestimo(), e);
     return true;
   }
 
@@ -45,9 +45,9 @@ public class BDBiblioteca {
   // ao empréstimo em questão. Caso positivo, atualiza o status para
   // "Devolvido" e define a data da devolução. Retorna 'true' se a
   // devolução for registrada com sucesso, e 'false' caso contrário.
-  public static boolean addDevolucao(String isbn, String dataEmprestimo, String dataDevolucao) {
-    Emprestimo e = getEmprestimos().get(isbn);
-    if(e.getLivroIsbn().equals(isbn) && e.getDataEmprestimo().equals(dataEmprestimo)) {
+  public static boolean addDevolucao(String id, String dataDevolucao) {
+    if(getEmprestimos().containsKey(id)) {
+      Emprestimo e = getEmprestimos().get(id);
       livros.get(e.getLivroIsbn()).adicionarQuantidade();
       e.setStatus("Devolvido");
       e.setDataDevolucao(dataDevolucao);

@@ -3,20 +3,30 @@ package modelo;
 import repositorio.BDBiblioteca;
 
 public class Emprestimo {
+	private String idEmprestimo;
 	private String livroIsbn;
 	private String usuarioCpf;
 	private String dataEmprestimo;
 	private String dataEstimadaDevolucao;
 	private String dataDevolucao;
 	private String status;
+
 	
+	private static int contador = 0;
+
 	public Emprestimo(String isbn, String cpf, String dataEmprestimo, String dataEstimadaDevolucao) {
+		this.idEmprestimo = getIdEmprestimo();
 		this.livroIsbn = isbn;
 		this.usuarioCpf = cpf;
 		this.dataEmprestimo = dataEmprestimo;
 		this.dataEstimadaDevolucao = dataEstimadaDevolucao;
 		this.dataDevolucao = "-";
 		this.status = "Emprestado";
+		contador++;
+	}
+
+	public String getIdEmprestimo() {
+		return Integer.toString(contador);
 	}
 
 	public String getLivroIsbn() {
@@ -60,7 +70,8 @@ public class Emprestimo {
 
 	@Override
 	public String toString() {
-		String relatorio = "\nISBN: " + this.livroIsbn;
+		String relatorio = "\nId: " + this.idEmprestimo;
+		relatorio += "\nISBN: " + this.livroIsbn;
 		relatorio += "\nTitulo: " + BDBiblioteca.getLivros().get(livroIsbn).getTitulo();
 		relatorio += "\nUsuario: " + BDBiblioteca.getUsuario().get(usuarioCpf).getNome();
 		relatorio += "\nData de empréstimo: " + this.dataEmprestimo;

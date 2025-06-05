@@ -81,19 +81,18 @@ public class Servico {
   // Cria um novo objeto do tipo Emprestimo e verifica se o empréstimo foi bem sucedido.
   // Caso retorne 'true', o livro foi emprestado com sucesso. Caso contrário, ele não está disponível.
   public String realizarEmprestimo(String isbn, String cpf, String dataEmprestimo, String dataEstimadaDevolucao) {
-    e = new Emprestimo(isbn, cpf, dataEmprestimo, dataEstimadaDevolucao);
-    if(BDBiblioteca.addEmprestimo(e)) {
-      if (BDBiblioteca.getLivros().get(isbn).getQuantidade() > 1) {
-        BDBiblioteca.getLivros().get(isbn).diminuirQuantidade();
+    if (BDBiblioteca.getLivros().get(isbn).getQuantidade() > 1) {
+      e = new Emprestimo(isbn, cpf, dataEmprestimo, dataEstimadaDevolucao);
+      if(BDBiblioteca.addEmprestimo(e)) {
+          return "Emprestimo realizado com sucesso.";
       }
-      return "Emprestimo realizado com sucesso.";
     }
     return "Erro! O livro que voce escolheu nao esta disponivel para emprestimo.";
   }
 
   // Realiza a devolução de um livro com base no empréstimo, ISBN e datas fornecidas.
-  public String realizarDevolucao(String isbn, String cpf, String dataEmprestimo, String dataDevolucao) {
-    if(BDBiblioteca.addDevolucao(isbn, dataEmprestimo, dataDevolucao)) {
+  public String realizarDevolucao(String id, String dataDevolucao) {
+    if(BDBiblioteca.addDevolucao(id, dataDevolucao)) {
       return "Devolução realizada com sucesso.";
     }
     return "Erro! O empréstimo não consta no sistema.";
@@ -111,15 +110,12 @@ public class Servico {
     return lista;
   }
 
-  // Retorna uma string com a lista de livros disponíveis, 
-  // incluindo apenas os exemplares com mais de uma unidade disponível.
+  // Retorna uma string com a lista de livros disponíveis.
   public String getRelatorioLivrosDisponiveis() {
     String lista = "";
     for (Livro l : BDBiblioteca.getLivros().values()) {
-      if (l.getQuantidade() > 1) {
-        lista += l.toString();
-        lista += "\n=============================\n";
-      }
+      lista += l.toString();
+      lista += "\n=============================\n";
     }
     return lista;
   }
@@ -156,10 +152,10 @@ public class Servico {
    }
   
   public String consultarUsuario(String cpf) {
-	    if (BDBiblioteca.getUsuario(cpf) != null) {
-	        return "Usuário encontrado.";
-	    }
-	    return "Usuário não encontrado.";
+	  if (BDBiblioteca.getUsuario().containsKey(cpf)) {
+      return BDBiblioteca.getUsuario().get(cpf).toString();
+    }
+    return "Erro! Este usuário não está cadastrado no sistema.";
 	}
 
   //nao consigui pensar em um jeito para resolve isso aqui.
@@ -167,7 +163,7 @@ public class Servico {
 	  String listaRela = "";
 	  for(Usuario u: BDBiblioteca.getUsuario().values()) {
 		  listaRela += u.toString();
-		  listaRela += "";
+		  listaRela += "\n=============================\n";
 	  }
 	  return listaRela;
   }
